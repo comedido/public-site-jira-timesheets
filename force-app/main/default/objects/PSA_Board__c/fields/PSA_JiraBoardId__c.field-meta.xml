@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PSA_JiraBoardId__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>&quot;id&quot;: 67</description>
+    <externalId>true</externalId>
+    <label>PSA Jira BoardId</label>
+    <length>4</length>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

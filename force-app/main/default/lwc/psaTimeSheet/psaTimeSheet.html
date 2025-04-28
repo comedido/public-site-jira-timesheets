@@ -1,0 +1,180 @@
+<template>
+    <div class="slds-p-around_medium">
+        <!-- Week Selector -->
+        <div class="slds-grid slds-align_absolute-center slds-align-middle slds-m-bottom_medium">
+            <lightning-button-icon icon-name="utility:chevronleft" onclick={previousWeek}></lightning-button-icon>
+            <lightning-input type="date" value={selectedDate} onchange={handleDateChange}></lightning-input>
+            <lightning-button-icon icon-name="utility:chevronright" onclick={nextWeek}></lightning-button-icon>
+        </div>
+
+        <!-- Timesheet Table -->
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr>
+                    <th>Project Assignment</th>
+                    <th>User Stories</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Total Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={timesheetRows} for:item="row" for:index="index">
+                    <tr key={row.id}>
+                        <!-- Project Assignment -->
+                        <td>
+                            <lightning-input
+                                type="search"
+                                data-index={index}
+                                value={row.projectName}
+                                onfocus={handleProjectFocus}
+                                oninput={handleProjectChange}
+                                placeholder="Search Project"
+                            ></lightning-input>
+                            <template if:true={row.showSuggestions}>
+                                <ul class="suggestions">
+                                    <template for:each={row.suggestions} for:item="suggestion">
+                                        <li
+                                            key={suggestion}
+                                            data-index={index}
+                                            data-value={suggestion}
+                                            onclick={selectSuggestion}
+                                        >
+                                        <lightning-icon icon-name="utility:description" alternative-text={suggestion} size="x-small" title="Click to select"></lightning-icon>    
+                                        {suggestion}
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </td>
+
+                        <!-- User Stories -->
+                        <td>
+                            <lightning-input
+                                type="text"
+                                data-index={index}
+                                onfocus={handleUserStoryFocus}
+                                oninput={handleUserStoryChange}
+                                placeholder="Search User Stories"
+                            ></lightning-input>
+                            <template if:true={row.showUserStorySuggestions}>
+                                <ul class="suggestions">
+                                    <template for:each={row.userStorySuggestions} for:item="userStory">
+                                        <li
+                                            key={userStory.id}
+                                            data-index={index}
+                                            data-id={userStory.id}
+                                            data-name={userStory.name}
+                                            onclick={selectUserStory}
+                                        >
+                                            <lightning-helptext content={userStory.fullSummary}></lightning-helptext>
+                                            {userStory.name}: {userStory.summary}
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+
+                            <!-- Selected User Stories -->
+                            <div class="selected-user-stories">
+                                <template for:each={row.selectedUserStories} for:item="story">
+                                    <lightning-pill
+                                        key={story.id}
+                                        label={story.name}
+                                        data-index={index}
+                                        data-id={story.id}
+                                        onremove={removeUserStory}
+                                    >
+                                        <lightning-icon
+                                            icon-name="standard:task"
+                                            alternative-text="User Story"
+                                        ></lightning-icon>
+                                    </lightning-pill>
+                                </template>
+                            </div>
+                        </td>
+
+                        <!-- Hours Input -->
+                        <td>
+                            <lightning-input
+                                type="number"
+                                value={row.monday}
+                                min="0"
+                                data-index={index}
+                                data-day="monday"
+                                onchange={handleHoursChange}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input
+                                type="number"
+                                value={row.tuesday}
+                                min="0"
+                                data-index={index}
+                                data-day="tuesday"
+                                onchange={handleHoursChange}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input
+                                type="number"
+                                value={row.wednesday}
+                                min="0"
+                                data-index={index}
+                                data-day="wednesday"
+                                onchange={handleHoursChange}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input
+                                type="number"
+                                value={row.thursday}
+                                min="0"
+                                data-index={index}
+                                data-day="thursday"
+                                onchange={handleHoursChange}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input
+                                type="number"
+                                value={row.friday}
+                                min="0"
+                                data-index={index}
+                                data-day="friday"
+                                onchange={handleHoursChange}
+                            ></lightning-input>
+                        </td>
+                        <td>{row.total}</td>
+
+                        <!-- Actions -->
+                        <td>
+                            <lightning-button-icon
+                                icon-name="utility:delete"
+                                alternative-text="Remove Row"
+                                data-index={index}
+                                onclick={removeRow}
+                            ></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <!-- Action Buttons -->
+        <div class="slds-m-top_medium slds-grid slds-grid_vertical-align-center slds-grid_align-center">
+            <div class="slds-m-right_medium">
+                <lightning-button label="Add Row" variant="brand" onclick={addRow}></lightning-button>
+            </div>
+            <div class="slds-m-right_medium">
+                <lightning-button label="Save" variant="neutral" onclick={saveTimesheet}></lightning-button>
+            </div>
+            <div>
+                <lightning-button label="Submit" variant="success" onclick={submitTimesheet}></lightning-button>
+            </div>
+        </div>
+    </div>
+</template>

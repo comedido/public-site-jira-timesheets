@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://auth.atlassian.com/authorize</authorizeUrl>
+    <consumerKey>jkmjNTVhBhdUWSM153Mt86RbhbVORh3B</consumerKey>
+    <consumerSecret>Placeholder_Value</consumerSecret>
+    <friendlyName>PSA_PortalAuth</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <isPkceEnabled>true</isPkceEnabled>
+    <providerType>OpenIdConnect</providerType>
+    <requireMfa>false</requireMfa>
+    <sendAccessTokenInHeader>true</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>https://auth.atlassian.com/oauth/token</tokenUrl>
+    <userInfoUrl>https://api.atlassian.com/me</userInfoUrl>
+</AuthProvider>

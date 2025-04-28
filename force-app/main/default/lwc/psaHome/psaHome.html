@@ -1,0 +1,58 @@
+<template>
+
+    <!-- Display error message if any -->
+    <template if:true={hasError}>
+        <div class="error-message">{errorMessages}</div>
+    </template>
+
+    <!-- Display login form if not authenticated -->
+    <template if:false={isUserAuthenticated}>
+        <lightning-card title="PSA Login" icon-name="custom:custom63">
+            <div class="login-container">
+                <h1>Welcome to Owlshead</h1>
+                <lightning-input 
+                    type="email" 
+                    label="Email" 
+                    value={email}
+                    onchange={handleInputChange}
+                    data-id="email">
+                </lightning-input>
+                <lightning-input 
+                    type="password" 
+                    label="Password" 
+                    value={password}
+                    onchange={handleInputChange}
+                    data-id="password">
+                </lightning-input>
+                <lightning-button 
+                    label="Login" 
+                    variant="neutral" 
+                    onclick={handleSSOLogin}>
+                </lightning-button>
+                <lightning-button 
+                    label="SSO with Jira" 
+                    variant="brand" 
+                    onclick={handleSSOLogin}>
+                </lightning-button>
+                <div class="additional-links">
+                    <a href="/ForgotPassword">Forgot Password?</a> |
+                    <a href="/SelfRegister">Sign Up</a>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+
+    <template if:true={isUserAuthenticated}>
+        <lightning-card title="PSA TimeSheet" icon-name="custom:custom63">
+            <div class="slds-m-around_medium">
+                <p>Welcome, {userName}!</p>
+                <lightning-button label="Logout" variant="neutral" onclick={handleLogout}></lightning-button>
+            </div>
+            <div class="slds-m-around_medium">
+                <c-psa-time-sheet></c-psa-time-sheet>
+            </div>
+        </lightning-card>
+        
+    </template>
+    
+</template>

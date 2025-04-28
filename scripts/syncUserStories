@@ -1,0 +1,3 @@
+// Execute Anonymous Script
+String projectKey = '10165';
+PSA_JiraProjectService.syncIssuesForProject(projectKey);

@@ -1,0 +1,26 @@
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.additional-links a {
+    color: #0176d3;
+    text-decoration: none;
+}
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.sso-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
